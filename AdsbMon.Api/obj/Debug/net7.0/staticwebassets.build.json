@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "dS0mcGfp/r9XbdHYj2HCpssf1feYENx2nY+YWLmqyGg=",
+  "Source": "AdsbMon.Api",
+  "BasePath": "_content/AdsbMon.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

@@ -1,0 +1,12 @@
+/home/will/RiderProjects/AdsbMon/AdsbMon.Core/bin/Debug/net7.0/AdsbMon.Core.deps.json
+/home/will/RiderProjects/AdsbMon/AdsbMon.Core/bin/Debug/net7.0/AdsbMon.Core.dll
+/home/will/RiderProjects/AdsbMon/AdsbMon.Core/bin/Debug/net7.0/AdsbMon.Core.pdb
+/home/will/RiderProjects/AdsbMon/AdsbMon.Core/obj/Debug/net7.0/AdsbMon.Core.csproj.AssemblyReference.cache
+/home/will/RiderProjects/AdsbMon/AdsbMon.Core/obj/Debug/net7.0/AdsbMon.Core.GeneratedMSBuildEditorConfig.editorconfig
+/home/will/RiderProjects/AdsbMon/AdsbMon.Core/obj/Debug/net7.0/AdsbMon.Core.AssemblyInfoInputs.cache
+/home/will/RiderProjects/AdsbMon/AdsbMon.Core/obj/Debug/net7.0/AdsbMon.Core.AssemblyInfo.cs
+/home/will/RiderProjects/AdsbMon/AdsbMon.Core/obj/Debug/net7.0/AdsbMon.Core.csproj.CoreCompileInputs.cache
+/home/will/RiderProjects/AdsbMon/AdsbMon.Core/obj/Debug/net7.0/AdsbMon.Core.dll
+/home/will/RiderProjects/AdsbMon/AdsbMon.Core/obj/Debug/net7.0/refint/AdsbMon.Core.dll
+/home/will/RiderProjects/AdsbMon/AdsbMon.Core/obj/Debug/net7.0/AdsbMon.Core.pdb
+/home/will/RiderProjects/AdsbMon/AdsbMon.Core/obj/Debug/net7.0/ref/AdsbMon.Core.dll
