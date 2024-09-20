@@ -45,7 +45,7 @@ public class Message
     private static int GetTypeCodeFromSubMessage(string subMessage)
     {
         var bits = new BitArray(Convert.FromHexString(subMessage.Substring(0, 2)));
-        var typeBits = bits.CopySlice(0, 5);
+        var typeBits = bits.CopySlice(3, 5);
         var typeCode = typeBits.AsInt();
 
         return typeCode;
@@ -59,6 +59,13 @@ public class Message
         {
             case >= 1 and <= 4:
                 decoded = AircraftIdentificationMessage.FromHex(subMessage);
+                break;
+            case >= 9 and <= 18:
+            case >= 20 and <= 22:
+                decoded = AirbornePositionMessage.FromHex(subMessage);
+                break;
+            case 19:
+                decoded = AirborneVelocityMessage.FromHex(subMessage);
                 break;
             default:
                 decoded = AircraftIdentificationMessage.FromHex(subMessage);
