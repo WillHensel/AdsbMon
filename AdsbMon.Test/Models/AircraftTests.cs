@@ -8,9 +8,28 @@ public class AircraftTests
 {
 
     [Test]
-    public void UpdateWithMessage_AirbornePositionTest()
+    public void UpdateWithMessage_AirbornePositionGloballyUnambiguousFrameTest()
     {
-        var aircraft = Aircraft.FromMessage(Message.FromHex("8D40621D58C382D690C8AC2863A7"));
+        var aircraft = Aircraft.FromMessage(Message.FromHex("8D40621D58C386435CC412692AD6"));
+        
+        Assert.That(aircraft.Latitude, Is.Null);
+        Assert.That(aircraft.Longitude, Is.Null);
+        
+        aircraft.UpdateWithMessage(Message.FromHex("8D40621D58C382D690C8AC2863A7"));
+
+        Assert.That(aircraft.Latitude, Is.EqualTo(52.2572));
+        Assert.That(aircraft.Longitude, Is.EqualTo(3.9194));
+    }
+
+    [Test]
+    public void UpdateWithMessage_AirbornePositionMessageLocallyUnambiguousTest()
+    {
+        var aircraft = Aircraft.FromMessage(Message.FromHex("8D40621D58C386435CC412692AD6"));
+        aircraft.UpdateWithMessage(Message.FromHex("8D40621D58C382D690C8AC2863A7"));
+        aircraft.UpdateWithMessage(Message.FromHex("8D40621D58C3835B60CF082863A7"));
+
+        Assert.That(aircraft.Latitude, Is.EqualTo(53.0354));
+        Assert.That(aircraft.Longitude, Is.EqualTo(4.0436));
     }
     
     [Test]

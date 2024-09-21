@@ -31,5 +31,9 @@ public class AirborneVelocityMessageTests
         Assert.That(airspeedSubMessage!.Speed, Is.EqualTo(375));
         Assert.That(airspeedSubMessage.SpeedType, Is.EqualTo(AirspeedType.True));
         Assert.That(airspeedSubMessage.MagneticHeading, Is.EqualTo(243.98));
+        
+        // 110000
+        // 53000
+        // 01011000110000111000001101011011011000001100111100001000
     }
 }
