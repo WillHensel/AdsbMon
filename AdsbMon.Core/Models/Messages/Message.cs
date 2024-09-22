@@ -68,8 +68,7 @@ public class Message
                 decoded = AirborneVelocityMessage.FromHex(subMessage);
                 break;
             default:
-                decoded = AircraftIdentificationMessage.FromHex(subMessage);
-                break;
+                throw new Exception("Message type not supported");
         }
 
         return decoded;

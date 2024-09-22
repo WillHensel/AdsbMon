@@ -14,10 +14,10 @@ public class AirborneVelocityMessage : SubMessage
     public int NavUncertainty { get; }
     public VerticalRateSource VerticalRateSrc { get; }
     public int VerticalRate { get; }
-    public VelocitySubMessage SubMessage { get; }
+    public IVelocitySubMessage SubMessage { get; }
 
     private AirborneVelocityMessage(int intentChangeFlag, int ifrCapabilityFlag, int navUncertainty,
-        VerticalRateSource verticalRateSrc, int verticalRate, VelocitySubMessage subMessage)
+        VerticalRateSource verticalRateSrc, int verticalRate, IVelocitySubMessage subMessage)
     {
         IntentChangeFlag = intentChangeFlag;
         IfrCapabilityFlag = ifrCapabilityFlag;
@@ -55,7 +55,7 @@ public class AirborneVelocityMessage : SubMessage
             verticalRate = -64 * (verticalRate - 1);
         }
 
-        VelocitySubMessage subMessage;
+        IVelocitySubMessage subMessage;
         switch (subTypeCode.AsInt())
         {
             case 1 or 2:
@@ -74,12 +74,12 @@ public class AirborneVelocityMessage : SubMessage
     }
 }
 
-public interface VelocitySubMessage
+public interface IVelocitySubMessage
 {
-    public static abstract VelocitySubMessage FromBits(BitArray bits, int subType);
+    public static abstract IVelocitySubMessage FromBits(BitArray bits, int subType);
 }
 
-public class GroundSpeed : VelocitySubMessage
+public class GroundSpeed : IVelocitySubMessage
 {
     public double Speed { get; }
     public double TrackAngle { get; }
@@ -90,7 +90,7 @@ public class GroundSpeed : VelocitySubMessage
         TrackAngle = trackAngle;
     }
     
-    public static VelocitySubMessage FromBits(BitArray bits, int subType)
+    public static IVelocitySubMessage FromBits(BitArray bits, int subType)
     {
         var northSouthVelocityComp = bits.CopySlice(0, 10).AsInt();
         var dirNorthSouth = bits.CopySlice(10, 1).AsInt();
@@ -128,7 +128,7 @@ public class GroundSpeed : VelocitySubMessage
     }
 }
 
-public class Airspeed : VelocitySubMessage
+public class Airspeed : IVelocitySubMessage
 {
     public int Speed { get; }
     public AirspeedType SpeedType { get; }
@@ -141,7 +141,7 @@ public class Airspeed : VelocitySubMessage
         MagneticHeading = magneticHeading;
     }
     
-    public static VelocitySubMessage FromBits(BitArray bits, int subType)
+    public static IVelocitySubMessage FromBits(BitArray bits, int subType)
     {
         var airspeed = bits.CopySlice(0, 10).AsInt();
         var airspeedType = bits.CopySlice(10, 1).AsInt();
