@@ -7,11 +7,53 @@
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-    
+
+    <table id="acTable">
+        <thead>
+        <tr>
+            <th>ICAO</th>
+            <th>Latitude</th>
+            <th>Longitude</th>
+            <th>Ground Speed</th>
+            <th>Track Angle</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var ac in Model)
+        {
+            <tr>
+                <td>@(ac.Icao)</td>
+                <td>@(ac.Latitude)</td>
+                <td>@(ac.Longitude)</td>
+                <td>@(ac.GroundSpeed)</td>
+                <td>@(ac.GroundTrackAngle)</td>
+            </tr>
+        }
+        </tbody>
+    </table>
     <ul>
-    @foreach (var ac in Model)
-    {
-        <li>@(ac.Icao)</li>
-    }
     </ul>
 </div>
+
+@section Scripts {
+    <script>
+    $(document).ready(function () {
+        const eventSource = new EventSource("@Url.Action("GetAircraftUpdate", "Home")");
+        eventSource.onmessage = (event) => {
+            let data = JSON.parse(event.data);
+            let newHtml = "";
+            for (let item of data) {
+                newHtml += "<tr>" +
+                `<td>${item.Icao ?? ""}</td>` +
+                `<td>${item.Latitude ?? ""}</td>` +
+                `<td>${item.Longitude ?? ""}</td>` +
+                `<td>${item.GroundSpeed ?? ""}</td>` +
+                `<td>${item.GroundTrackAngle ?? ""}</td>` +
+                "</tr>"
+            }
+            $("#acTable").children("tbody").html(newHtml);
+        }
+    })
+</script>
+
+}

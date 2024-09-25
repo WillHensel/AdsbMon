@@ -17,10 +17,12 @@ public class Aircraft
     public double? MagneticHeading { get; private set; }
     public double? GroundTrackAngle { get; private set; }
     public AirbornePositionMessage? LastPositionMessage { get; private set; }
+    public DateTime LastSeen { get; private set; }
 
     private Aircraft(string icao)
     {
         Icao = icao;
+        LastSeen = DateTime.Now;
     }
 
     public static Aircraft FromMessage(Message message)
@@ -48,6 +50,8 @@ public class Aircraft
             default:
                 throw new NotImplementedException();
         }
+
+        LastSeen = DateTime.Now;
     }
 
     private void UpdateWithMessage(AirbornePositionMessage msg)

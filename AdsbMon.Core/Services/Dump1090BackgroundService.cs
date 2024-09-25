@@ -45,6 +45,7 @@ public class Dump1090BackgroundService : BackgroundService, IDisposable, IAsyncD
         catch
         {
             // Ignore
+            // TODO implement custom exception for messages not supported
         }
     }
 

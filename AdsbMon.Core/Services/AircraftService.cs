@@ -27,6 +27,8 @@ public class AircraftService
         {
             aircraftToUpdate.UpdateWithMessage(message);
         }
+        
+        RemoveOld();
     }
 
     /// <summary>
@@ -46,5 +48,16 @@ public class AircraftService
     public Aircraft? GetAircraft(string icao)
     {
         return _state.GetValueOrDefault(icao);
+    }
+
+    private void RemoveOld()
+    {
+        foreach (var item in _state)
+        {
+            if (DateTime.Now.Subtract(item.Value.LastSeen).Seconds > 5)
+            {
+                _state.Remove(item.Key);
+            }
+        }
     }
 }
