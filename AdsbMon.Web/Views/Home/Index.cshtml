@@ -4,56 +4,60 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    #map {
+        height: 89vh;
+        width: 100%;
+    }
+    
+    .marker {
+        background-image: url("/images/plane_icon.svg");
+        background-size: cover;
+        width: 45px;
+        height: 45px;
+    }
+</style>
 
-    <table id="acTable">
-        <thead>
-        <tr>
-            <th>ICAO</th>
-            <th>Latitude</th>
-            <th>Longitude</th>
-            <th>Ground Speed</th>
-            <th>Track Angle</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var ac in Model)
-        {
-            <tr>
-                <td>@(ac.Icao)</td>
-                <td>@(ac.Latitude)</td>
-                <td>@(ac.Longitude)</td>
-                <td>@(ac.GroundSpeed)</td>
-                <td>@(ac.GroundTrackAngle)</td>
-            </tr>
-        }
-        </tbody>
-    </table>
-    <ul>
-    </ul>
-</div>
+<div id="map"></div>
 
 @section Scripts {
     <script>
-    $(document).ready(function () {
-        const eventSource = new EventSource("@Url.Action("GetAircraftUpdate", "Home")");
-        eventSource.onmessage = (event) => {
-            let data = JSON.parse(event.data);
-            let newHtml = "";
-            for (let item of data) {
-                newHtml += "<tr>" +
-                `<td>${item.Icao ?? ""}</td>` +
-                `<td>${item.Latitude ?? ""}</td>` +
-                `<td>${item.Longitude ?? ""}</td>` +
-                `<td>${item.GroundSpeed ?? ""}</td>` +
-                `<td>${item.GroundTrackAngle ?? ""}</td>` +
-                "</tr>"
+
+        mapboxgl.accessToken = 'pk.eyJ1Ijoid3JoZW5zZWwiLCJhIjoiY20xaGFrNW1qMGR2eTJxcHg5emUyNmFucSJ9.vBW3Dg8d_C2Lf91yo7vhzg';
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: 'mapbox://styles/wrhensel/cm1hao528041801rbae1pgj4z', // style URL
+            center: [-122.354, 47.156], // starting position [lng, lat]
+            zoom: 10, // starting zoom
+        });
+        
+        const markerEl = document.createElement("div");
+        markerEl.className = "marker";
+        
+        function setupUpdateListener() {
+            let markers = [];
+            const eventSource = new EventSource("@Url.Action("GetAircraftUpdate", "Home")");
+            eventSource.onmessage = (event) => {
+                for (let item of markers) {
+                    item.remove();
+                }
+                markers = [];
+                let data = JSON.parse(event.data);
+                for (let item of data) {
+                    if (item.Latitude && item.Longitude && item.GroundTrackAngle) {
+                        let marker = new mapboxgl.Marker({ element: markerEl.cloneNode(), rotation: (item.GroundTrackAngle - 90) % 360 })
+                            .setLngLat([item.Longitude, item.Latitude])
+                            .addTo(map);
+                        markers.push(marker);
+                    }
+                }
             }
-            $("#acTable").children("tbody").html(newHtml);
         }
-    })
-</script>
+        
+        $(document).ready(function () {
+            setupUpdateListener();
+        })
+    
+    </script>
 
 }
