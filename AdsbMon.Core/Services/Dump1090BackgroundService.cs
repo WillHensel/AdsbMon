@@ -35,18 +35,16 @@ public class Dump1090BackgroundService : BackgroundService, IDisposable, IAsyncD
 
     private async Task DoWork()
     {
-        try
+        var next = await _dump1090Client.GetNextSocketMessage();
+        next = next.Replace("*", "").Replace("\n", "").Replace(";", "");
+
+        if (next.Length < 28)
         {
-            var next = await _dump1090Client.GetNextSocketMessage();
-            next = next.TrimStart('*').TrimEnd('\n').TrimEnd(';');
-            var message = Message.FromHex(next);
-            _aircraftService.UpdateAircraft(message);
+            return;
         }
-        catch
-        {
-            // Ignore
-            // TODO implement custom exception for messages not supported
-        }
+        
+        var message = Message.FromHex(next);
+        _aircraftService.UpdateAircraft(message);
     }
 
     public override void Dispose()

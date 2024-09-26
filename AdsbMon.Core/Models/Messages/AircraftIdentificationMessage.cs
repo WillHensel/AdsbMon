@@ -8,13 +8,6 @@ public class AircraftIdentificationMessage : SubMessage
     public AircraftCategory Category { get; set; }
     public string Callsign { get; set; }
 
-    private static Dictionary<int, Dictionary<int, AircraftCategory>> _typeCodeMap = new()
-    {
-        { 2, _typeCode2Map },
-        { 3, _typeCode3Map },
-        { 4, _typeCode4Map }
-    };
-
     private static Dictionary<int, AircraftCategory> _typeCode2Map = new()
     {
         { 1, AircraftCategory.SurfaceEmergencyVehicle },
@@ -47,6 +40,13 @@ public class AircraftIdentificationMessage : SubMessage
         { 7, AircraftCategory.Rotorcraft }
     };
 
+    private static Dictionary<int, Dictionary<int, AircraftCategory>> _typeCodeMap = new()
+    {
+        { 2, _typeCode2Map },
+        { 3, _typeCode3Map },
+        { 4, _typeCode4Map }
+    };
+
     private AircraftIdentificationMessage(AircraftCategory category, string callsign)
     {
         Category = category;
@@ -73,8 +73,15 @@ public class AircraftIdentificationMessage : SubMessage
         }
         else
         {
-            var categoryMap = _typeCodeMap[typeCode];
-            category = categoryMap[categoryNum];
+            try
+            {
+                var categoryMap = _typeCodeMap[typeCode];
+                category = categoryMap[categoryNum];
+            }
+            catch 
+            {
+                category = AircraftCategory.None;
+            }
         }
 
         var callsign = GetCallsignFromBits(bits);

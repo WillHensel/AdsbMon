@@ -54,7 +54,7 @@ public class AircraftService
     {
         foreach (var item in _state)
         {
-            if (DateTime.Now.Subtract(item.Value.LastSeen).Seconds > 5)
+            if (DateTime.Now.Subtract(item.Value.LastSeen).Seconds > 15)
             {
                 _state.Remove(item.Key);
             }

@@ -9,6 +9,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{39AB403E-B4C1-429C-AD24-0D7DE9A99348}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		Dockerfile = Dockerfile
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdsbMon.Web", "AdsbMon.Web\AdsbMon.Web.csproj", "{13A40090-16DE-45DA-B27F-BADE79652966}"

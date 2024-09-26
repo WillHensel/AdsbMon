@@ -68,7 +68,8 @@ public class Message
                 decoded = AirborneVelocityMessage.FromHex(subMessage);
                 break;
             default:
-                throw new Exception("Message type not supported");
+                decoded = new EmptyMessage();
+                break;
         }
 
         return decoded;

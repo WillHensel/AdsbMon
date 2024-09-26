@@ -47,8 +47,6 @@ public class Aircraft
             case AircraftIdentificationMessage msg:
                 UpdateWithMessage(msg);
                 break;
-            default:
-                throw new NotImplementedException();
         }
 
         LastSeen = DateTime.Now;
