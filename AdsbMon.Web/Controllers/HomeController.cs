@@ -26,20 +26,27 @@ public class HomeController : Controller
 
     public async Task GetAircraftUpdate(CancellationToken cancellationToken)
     {
-        Response.Headers.Append(HeaderNames.ContentType, "text/event-stream");
-        while (true)
+        try
         {
-            if (cancellationToken.IsCancellationRequested)
+            Response.Headers.Append(HeaderNames.ContentType, "text/event-stream");
+            while (true)
             {
-                break;
-            }
-            
-            var model = GetAircraftModel();
-            var dataString = $"data: {JsonSerializer.Serialize(model)}\n\n";
-            await Response.WriteAsync(dataString, cancellationToken);
-            await Response.Body.FlushAsync(cancellationToken);
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    break;
+                }
 
-            await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+                var model = GetAircraftModel();
+                var dataString = $"data: {JsonSerializer.Serialize(model)}\n\n";
+                await Response.WriteAsync(dataString, cancellationToken);
+                await Response.Body.FlushAsync(cancellationToken);
+
+                await Task.Delay(TimeSpan.FromSeconds(1), cancellationToken);
+            }
+        }
+        catch (TaskCanceledException)
+        {
+            // Ignore
         }
 
         await Response.CompleteAsync();

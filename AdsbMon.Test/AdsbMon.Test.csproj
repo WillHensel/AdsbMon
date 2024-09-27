@@ -17,7 +17,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\AdsbMon.Api\AdsbMon.Api.csproj" />
       <ProjectReference Include="..\AdsbMon.Core\AdsbMon.Core.csproj" />
     </ItemGroup>
 
