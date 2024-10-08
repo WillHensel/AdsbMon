@@ -27,7 +27,8 @@ public class AircraftController : ControllerBase
                 Latitude = ac.Latitude,
                 Longitude = ac.Longitude,
                 GroundSpeed= ac.GroundSpeed,
-                GroundTrackAngle = ac.GroundTrackAngle
+                GroundTrackAngle = ac.GroundTrackAngle,
+                Altitude = ac.Altitude
             });
         }
 

@@ -12,6 +12,7 @@ public class Aircraft
     public double? Longitude { get; private set; }
     public double? GroundSpeed { get; private set; }
     public int? Airspeed { get; private set; }
+    public double? Altitude { get; private set; }
     public int? VerticalRate { get; private set; }
     public bool IsAloft { get; private set; } = false;
     public double? MagneticHeading { get; private set; }
@@ -119,6 +120,7 @@ public class Aircraft
 
         Latitude = Math.Round(latitude, 4);
         Longitude = Math.Round(longitude, 4);
+        Altitude = msg.Altitude;
         LastPositionMessage = msg;
     }
 
