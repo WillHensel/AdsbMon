@@ -49,5 +49,5 @@ jobs:
       uses: actions/attest-build-provenance@v1
       with:
         subject-name: ghcr.io/willhensel/adsbmon/api
-        subject-digets: ${{ steps.push.outputs.digest }}
+        subject-digest: ${{ steps.push.outputs.digest }}
         push-to-registry: true
