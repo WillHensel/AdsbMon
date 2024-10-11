@@ -17,7 +17,7 @@ public class Dump1090Client : IDisposable, IAsyncDisposable
 
         if (ipAddress == null || port == null)
         {
-            throw new Exception("DUMP1090_IP_ADDR and DUMP1090_PORT environment variables are not set! Ensure you've set these variables to a an open Dump1090 socket on your network.");
+            throw new Exception("DUMP1090_IP_ADDR and DUMP1090_PORT environment variables are not set! Ensure you've set these variables to an open Dump1090 socket on your network.");
         }
         
         var ipEndPoint = new IPEndPoint(IPAddress.Parse("192.168.1.121"), 30002);
