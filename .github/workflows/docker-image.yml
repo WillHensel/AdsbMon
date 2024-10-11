@@ -39,10 +39,10 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         context: .
-        file: ./AdsbMon.Api/DockerFile
+        file: ./AdsbMon.Api/Dockerfile
         push: true
         tags: ${{ steps.meta.outputs.tags }}
-        labesl: ${{ steps.meta.outputs.labels }}
+        labels: ${{ steps.meta.outputs.labels }}
       
     
     - name: Name generate artifact attestation
