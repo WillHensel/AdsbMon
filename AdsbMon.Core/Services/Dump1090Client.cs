@@ -12,6 +12,14 @@ public class Dump1090Client : IDisposable, IAsyncDisposable
 
     public async Task Connect()
     {
+        var ipAddress = Environment.GetEnvironmentVariable("DUMP1090_IP_ADDR");
+        var port = Environment.GetEnvironmentVariable("DUMP1090_PORT");
+
+        if (ipAddress == null || port == null)
+        {
+            throw new Exception("DUMP1090_IP_ADDR and DUMP1090_PORT environment variables are not set! Ensure you've set these variables to a an open Dump1090 socket on your network.");
+        }
+        
         var ipEndPoint = new IPEndPoint(IPAddress.Parse("192.168.1.121"), 30002);
 
         _client = new();

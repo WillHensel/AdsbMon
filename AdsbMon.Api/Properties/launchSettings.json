@@ -16,7 +16,9 @@
       "launchUrl": "swagger",
       "applicationUrl": "http://localhost:5202",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DUMP1090_IP_ADDR": "192.168.1.121",
+        "DUMP1090_PORT": "30002"
       }
     },
     "https": {
