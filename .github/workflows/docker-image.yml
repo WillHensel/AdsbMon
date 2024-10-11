@@ -30,7 +30,7 @@ jobs:
 
     - name: Build and push Docker image
       id: push
-      uses: docker/buid-push-action@v6
+      uses: docker/build-push-action@v6
       with:
         context: .
         file: ./AdsbMon.Api/DockerFile
