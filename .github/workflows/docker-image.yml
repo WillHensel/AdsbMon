@@ -11,7 +11,13 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+      
     steps:
     - uses: actions/checkout@v4
 
@@ -26,7 +32,7 @@ jobs:
       id: meta
       uses: docker/metadata-action@v5
       with:
-        images: gchr.io/${{ env.IMAGE_NAME }}
+        images: gchr.io/willhensel/adsbmon/api
 
     - name: Build and push Docker image
       id: push
@@ -42,6 +48,6 @@ jobs:
     - name: Name generate artifact attestation
       uses: actions/attest-build-provenance@v1
       with:
-        subject-name: gchr.io/${{ env.IMAGE_NAME }}
+        subject-name: gchr.io/willhensel/adsbmon/api
         subject-digets: ${{ steps.push.outputs.digest }}
         push-to-registry: true
