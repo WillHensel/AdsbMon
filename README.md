@@ -1,9 +1,10 @@
 
 # AdsbMon
 
-ADSB monitoring by decoding raw output from Dump1090. This is self-hostable software that connects
-to a [Dump1090](https://github.com/antirez/dump1090) socket on your network, decodes ADSB messages, and then makes information about aircraft that is present
-in the area via API routes. It only supports the extended squitter messages with a 112-bit data block. [Dump1090](https://github.com/antirez/dump1090) may send
+ADSB Monitoring by decoding raw output from Dump1090. This is self-hostable software that connects
+to a [Dump1090](https://github.com/antirez/dump1090) socket on your network, decodes ADSB messages from aircraft present in the local area, 
+and then makes information about the aircraft available via API routes. 
+It only supports the extended squitter messages with a 112-bit data block. [Dump1090](https://github.com/antirez/dump1090) may send
 more messages that have the shorter 56-bit data block, these are not supported.
 
 The following ADSB messages are supported:
